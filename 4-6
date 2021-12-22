@@ -1,0 +1,59 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+/*
+  method calc
+    1           1           1 * 3          1 * 3 * 5
+  ------ = 1 + --- * x² + -------- * x⁴ + ----------- * x⁶ + ... (R=1)
+  √ 1-x²        2          2 * 4           2 * 4 * 6
+
+Input parameters:
+   n - the number of terms on the right side of the equation
+   x - value of x in the equation
+ Output:
+   calculation result
+*/
+float calc(int n, float x)
+{
+    float term = 1.0;
+    float result = 1.0;
+    int j;
+
+    for (int i = 1; i <= n - 1; i++)
+    {
+        j = 2 * i - 1;
+        term = term * j / (j + 1) * x * x;
+        result += term;
+    }
+
+    return result;
+}
+
+int main()
+{
+    float x;
+    float n;
+
+    cout << "Input n value: ";
+    cin >> n;
+
+    if (n <= 0) {
+        cout << "Error, n must be > 0"<<endl;
+        return -1;
+    }
+
+    cout << "Input x value: ";
+    cin >> x;
+
+    if (abs(x) >= 1) {
+        cout << "Error, |x| must be < 1";
+        return -1;
+    }
+
+
+    cout << "1 / sqrt( 1 - x * x) = " << calc(n, x)<<endl;
+
+    return 0;
+}
